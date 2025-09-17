@@ -73,6 +73,32 @@ class ShapesDemoScreen extends StatelessWidget {
                 size: const Size(double.infinity, 300),
               ),
             ),
+            const SizedBox(height: 20),
+            const Text(
+              'Task 4: Smiley Face from Basic Shapes',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 260,
+              child: CustomPaint(
+                painter: SmileyFacePainter(),
+                size: const Size(double.infinity, 260),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Task 5: Party Face from Basic Shapes',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 260,
+              child: CustomPaint(
+                painter: PartyHatPainter(),
+                size: const Size(double.infinity, 260),
+              ),
+            ),
           ],
         ),
       ),
@@ -148,9 +174,7 @@ class BasicShapesPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
 class CombinedShapesPainter extends CustomPainter {
@@ -234,9 +258,7 @@ class CombinedShapesPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
 class StyledShapesPainter extends CustomPainter {
@@ -284,7 +306,7 @@ class StyledShapesPainter extends CustomPainter {
       ..color = Colors.orange
       ..strokeWidth = 3
       ..style = PaintingStyle.stroke;
-    
+
     // We draw a series of short lines and spaces
     final path = Path();
     double startX = centerX - 100;
@@ -320,7 +342,48 @@ class StyledShapesPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
+
+class SmileyFacePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final cx = size.width / 2;
+    final cy = size.height / 2;
+    final center = Offset(cx, cy);
+
+  
+    //face
+    final circlePaint = Paint()
+      ..color = Colors.yellow
+      ..style = PaintingStyle.fill;
+    canvas.drawCircle(center, 90, circlePaint);
+
+    //eyes
+    final eye = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.fill;
+    final leftEyeRect  = Rect.fromCenter(center: Offset(cx - 30, cy - 25), width: 18, height: 29);
+    final rightEyeRect = Rect.fromCenter(center: Offset(cx + 30, cy - 25), width: 18, height: 29);
+    canvas.drawOval(leftEyeRect, eye);   
+    canvas.drawOval(rightEyeRect, eye);  
+
+
+    //smile
+    
+    final smile = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 6;
+    canvas.drawArc(
+      Rect.fromCenter(center: Offset(cx, cy + 15), width: 120, height: 90),
+      0.3, // start angle in radians
+      2.6, // sweep angle in radians (about 120 degrees)
+      false, 
+      smile,
+    );
+  }
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
