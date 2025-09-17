@@ -49,7 +49,7 @@ class ShapesDemoScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Task 2: Combined Shapes (Abstract Design)',
+              'Task 2: A Mfing Heart',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
@@ -92,7 +92,7 @@ class BasicShapesPainter extends CustomPainter {
     final rectOffset = Offset(centerX - 160, centerY);
     final lineStart = Offset(centerX - 200, centerY - 50);
     final lineEnd = Offset(centerX - 140, centerY + 50);
-    final ovalOffset = Offset(centerX + 160, centerY);
+    final ovalOffset = Offset(centerX + 5, centerY);
 
     // Draw a square
     final squarePaint = Paint()
@@ -159,85 +159,45 @@ class CombinedShapesPainter extends CustomPainter {
     final centerX = size.width / 2;
     final centerY = size.height / 2;
 
-    // Background gradient
-    final backgroundGradient = RadialGradient(
-      center: Alignment.center,
-      radius: 0.8,
-      colors: [Colors.blue.shade100, Colors.white],
-    );
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, size.width, size.height),
-      Paint()..shader = backgroundGradient.createShader(Rect.fromLTWH(0, 0, size.width, size.height)),
-    );
+    // Offsets for ovals
+    final ovalOffset1 = Offset(centerX - 20, centerY - 20);
+    final ovalOffset2 = Offset(centerX + 20, centerY - 20);
 
-    // Draw a sun (circle with rays)
-    final sunPaint = Paint()
-      ..color = Colors.yellow
-      ..style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(centerX, centerY - 40), 40, sunPaint);
+    // Offset for the top point of the triangle
+    final triangleOffset = Offset(centerX, centerY + 60);
 
-    // Sun rays (lines)
-    final rayPaint = Paint()
-      ..color = Colors.yellow
-      ..strokeWidth = 3;
-    for (int i = 0; i < 8; i++) {
-      final angle = i * (pi / 4); // Use pi from dart:math
-      final dx = cos(angle) * 60;
-      final dy = sin(angle) * 60;
-      canvas.drawLine(
-        Offset(centerX, centerY - 40),
-        Offset(centerX + dx, centerY - 40 + dy),
-        rayPaint,
-      );
-    }
-
-    // Draw a house (square with triangle roof)
-    final housePaint = Paint()
-      ..color = Colors.brown
-      ..style = PaintingStyle.fill;
-    canvas.drawRect(
-      Rect.fromCenter(center: Offset(centerX, centerY + 40), width: 80, height: 80),
-      housePaint,
-    );
-
-    final roofPaint = Paint()
+    final paint = Paint()
       ..color = Colors.red
       ..style = PaintingStyle.fill;
-    final roofPath = Path()
-      ..moveTo(centerX - 60, centerY)
-      ..lineTo(centerX + 60, centerY)
-      ..lineTo(centerX, centerY - 60)
+
+    // Draw left oval
+    canvas.drawOval(
+      Rect.fromCenter(center: ovalOffset1, width: 70, height: 70),
+      paint,
+    );
+
+    // Draw right oval
+    canvas.drawOval(
+      Rect.fromCenter(center: ovalOffset2, width: 70, height: 70),
+      paint,
+    );
+
+    // Draw triangle (bottom of the heart)
+    final path = Path()
+      ..moveTo(triangleOffset.dx, triangleOffset.dy)
+      ..lineTo(triangleOffset.dx - 50, triangleOffset.dy - 60)
+      ..lineTo(triangleOffset.dx + 50, triangleOffset.dy - 60)
       ..close();
-    canvas.drawPath(roofPath, roofPaint);
 
-    // Draw a door (rectangle)
-    final doorPaint = Paint()
-      ..color = Colors.blueGrey
-      ..style = PaintingStyle.fill;
-    canvas.drawRect(
-      Rect.fromCenter(center: Offset(centerX, centerY + 60), width: 30, height: 50),
-      doorPaint,
-    );
-
-    // Draw windows (squares)
-    final windowPaint = Paint()
-      ..color = Colors.blue.shade200
-      ..style = PaintingStyle.fill;
-    canvas.drawRect(
-      Rect.fromCenter(center: Offset(centerX - 25, centerY + 20), width: 20, height: 20),
-      windowPaint,
-    );
-    canvas.drawRect(
-      Rect.fromCenter(center: Offset(centerX + 25, centerY + 20), width: 20, height: 20),
-      windowPaint,
-    );
+    canvas.drawPath(path, paint);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
+
+
+
 
 class StyledShapesPainter extends CustomPainter {
   @override
