@@ -159,30 +159,25 @@ class HeartPainter extends CustomPainter {
     final centerX = size.width / 2;
     final centerY = size.height / 2;
 
-    // Offsets for ovals
     final ovalOffset1 = Offset(centerX - 20, centerY - 20);
     final ovalOffset2 = Offset(centerX + 20, centerY - 20);
 
-    // Offset for the top point of the triangle
     final triangleOffset = Offset(centerX, centerY + 60);
 
     final paint = Paint()
       ..color = Colors.red
       ..style = PaintingStyle.fill;
 
-    // Draw left oval
     canvas.drawOval(
       Rect.fromCenter(center: ovalOffset1, width: 70, height: 70),
       paint,
     );
 
-    // Draw right oval
     canvas.drawOval(
       Rect.fromCenter(center: ovalOffset2, width: 70, height: 70),
       paint,
     );
 
-    // Draw triangle (bottom of the heart)
     final path = Path()
       ..moveTo(triangleOffset.dx, triangleOffset.dy)
       ..lineTo(triangleOffset.dx - 50, triangleOffset.dy - 60)
