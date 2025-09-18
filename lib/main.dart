@@ -49,27 +49,27 @@ class ShapesDemoScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Task 2: A Mfing Heart',
+              'Task 2: A Heart',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             SizedBox(
               height: 300,
               child: CustomPaint(
-                painter: CombinedShapesPainter(),
+                painter: HeartPainter(),
                 size: const Size(double.infinity, 300),
               ),
             ),
             const SizedBox(height: 20),
             const Text(
-              'Task 3: Styled Shapes',
+              'Task 3: A 8-ball',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             SizedBox(
               height: 300,
               child: CustomPaint(
-                painter: StyledShapesPainter(),
+                painter: BallPainter(),
                 size: const Size(double.infinity, 300),
               ),
             ),
@@ -153,7 +153,7 @@ class BasicShapesPainter extends CustomPainter {
   }
 }
 
-class CombinedShapesPainter extends CustomPainter {
+class HeartPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final centerX = size.width / 2;
@@ -199,84 +199,53 @@ class CombinedShapesPainter extends CustomPainter {
 
 
 
-class StyledShapesPainter extends CustomPainter {
+class BallPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final centerX = size.width / 2;
     final centerY = size.height / 2;
+    final circleOffset1 = Offset(centerX, centerY - 50);
+    final circleOffset = Offset(centerX, centerY - 50);
+    final topDot = Offset(centerX, centerY - 60);
+    final bottomDot = Offset(centerX, centerY - 40);
+    final insideDot = Offset(centerX, centerY - 60);
+    final insideDot1 = Offset(centerX, centerY - 40);
 
-    // Draw a gradient-filled rectangle
-    final rectGradient = LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-      colors: [Colors.red, Colors.blue],
-    );
-    final rect = Rect.fromCenter(center: Offset(centerX, centerY - 100), width: 200, height: 60);
-    canvas.drawRect(
-      rect,
-      Paint()
-        ..shader = rectGradient.createShader(rect)
-        ..style = PaintingStyle.fill,
-    );
-
-    // Draw a circle with a border
     final circlePaint = Paint()
-      ..color = Colors.green
-      ..style = PaintingStyle.fill;
-    final circleBorderPaint = Paint()
       ..color = Colors.black
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4;
-    canvas.drawCircle(Offset(centerX - 80, centerY), 40, circlePaint);
-    canvas.drawCircle(Offset(centerX - 80, centerY), 40, circleBorderPaint);
-
-    // Draw a transparent oval
-    final ovalPaint = Paint()
-      ..color = Colors.purple.withOpacity(0.5)
       ..style = PaintingStyle.fill;
-    canvas.drawOval(
-      Rect.fromCenter(center: Offset(centerX + 80, centerY), width: 100, height: 60),
-      ovalPaint,
-    );
 
-    // Draw a dashed line using a custom path effect
-    final dashPaint = Paint()
-      ..color = Colors.orange
-      ..strokeWidth = 3
-      ..style = PaintingStyle.stroke;
+    canvas.drawCircle(circleOffset, 60, circlePaint);
+
+    final circlePaint1 = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(circleOffset1, 35, circlePaint1);
+
+    final dotPaint = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(topDot, 12, dotPaint);
+
+    final dotPaint1 = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(bottomDot, 12, dotPaint);
+
+    final insidePaint = Paint()
+        ..color = Colors.white
+        ..style = PaintingStyle.fill;
     
-    // We draw a series of short lines and spaces
-    final path = Path();
-    double startX = centerX - 100;
-    const dashLength = 10.0;
-    const spaceLength = 5.0;
-    while (startX < centerX + 100) {
-      path.moveTo(startX, centerY + 80);
-      path.lineTo(min(startX + dashLength, centerX + 100), centerY + 80);
-      startX += dashLength + spaceLength;
-    }
-    canvas.drawPath(path, dashPaint);
+    canvas.drawCircle(insideDot, 6, insidePaint);
 
-    // Draw a gradient arc
-    final arcGradient = SweepGradient(
-      center: Alignment.centerRight,
-      startAngle: 0,
-      endAngle: pi, // Use pi from dart:math
-      colors: [Colors.red, Colors.yellow, Colors.green],
-    );
-    final arcRect = Rect.fromCenter(center: Offset(centerX, centerY + 100), width: 120, height: 120);
-    final arcPaint = Paint()
-      ..shader = arcGradient.createShader(arcRect)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 10
-      ..strokeCap = StrokeCap.round;
-    canvas.drawArc(
-      Rect.fromCenter(center: Offset(centerX, centerY + 100), width: 100, height: 100),
-      0, // start angle
-      2.5, // sweep angle
-      false,
-      arcPaint,
-    );
+    final insidePaint1 = Paint()
+        ..color = Colors.white
+        ..style = PaintingStyle.fill;
+    
+    canvas.drawCircle(insideDot1, 6, insidePaint1);
   }
 
   @override
@@ -284,3 +253,4 @@ class StyledShapesPainter extends CustomPainter {
     return false;
   }
 }
+
