@@ -70,19 +70,18 @@ class ShapesDemoScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             SizedBox(
-              height: 260,
               child: Stack(
+                alignment: Alignment.center,
                 children: [ 
                   CustomPaint(
                     painter: PartyHatPainter(),
                     size: const Size(double.infinity, 260),
                   ),
-
-                  Image.asset(
-                   "https://usagif.com/wp-content/uploads/gif/confetti-43.gif",
-                    height: 125.0,
-                    width: 125.0,
-
+        
+                  Image.network(
+                  'https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3B6bDl3aHZhdXI1eGN6cHhkODR3bno1cXRraGEzZ3dja241MzlzdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/PotiYSwEnO33KX007a/giphy.gif',
+                  width: 250,
+                  height: 250,
                   ),
                 ],
               ),
@@ -151,6 +150,7 @@ class PartyHatPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, 90, face);
 
+    //left eye
     final leftEye = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
@@ -163,6 +163,7 @@ class PartyHatPainter extends CustomPainter {
       leftEye,
     );
 
+    //right eye
     final rightEye = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
@@ -175,6 +176,7 @@ class PartyHatPainter extends CustomPainter {
       rightEye,
     );
 
+    //left eye brow
     final leftEyeBrow = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
@@ -187,6 +189,7 @@ class PartyHatPainter extends CustomPainter {
       leftEyeBrow,
     );
 
+    //right eye brow
     final rightEyeBrow = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
@@ -199,6 +202,7 @@ class PartyHatPainter extends CustomPainter {
       rightEyeBrow,
     );
 
+    //mouth top
     final mouthTop = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
@@ -211,7 +215,8 @@ class PartyHatPainter extends CustomPainter {
       false, 
       mouthTop,
     );
-
+    
+    //mouth bottom
     final mouthBottom = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
@@ -225,28 +230,43 @@ class PartyHatPainter extends CustomPainter {
       mouthBottom,
     );
     
+    //hat
     final baseY = cy - 85;
-    const dx = -170;
-    final baseLeft  = Offset(cx + 180 + dx,  baseY);
+    const dx = -170; 
+
+    final baseLeft  = Offset(cx + 180 + dx, baseY);
     final baseRight = Offset(cx + 102 + dx, baseY + 30);
-    final apex      = Offset(cx + 72 + dx,  baseY - 60);
+    final apex      = Offset(cx +  72 + dx, baseY - 60);
 
-    final hatFill = Paint()
-      ..color = Colors.orange.shade300   // bland, muted orange
-      ..style = PaintingStyle.fill;
-    final hatStroke = Paint()
-      ..color = Colors.black
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4;
-
+  
     final hat = Path()
       ..moveTo(apex.dx, apex.dy)
       ..lineTo(baseLeft.dx, baseLeft.dy)
       ..lineTo(baseRight.dx, baseRight.dy)
       ..close();
 
+    
+    final hatBounds = hat.getBounds(); 
+
+    final hatFill = Paint()
+      ..style = PaintingStyle.fill
+      ..shader = const LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Color(0xFFB3E5FC), //light
+          Color(0xFFFF4081), //dark
+        ],
+      ).createShader(hatBounds);
+
+    final hatStroke = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4;
+
     canvas.drawPath(hat, hatFill);
     canvas.drawPath(hat, hatStroke);
+
 
   }
   @override
