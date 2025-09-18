@@ -49,19 +49,19 @@ class ShapesDemoScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 20),
-            const Text(
-              'Task 2: Heart from basic shapes',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 260,
-              child: CustomPaint(
-                painter: PartyHatPainter(),
-                size: const Size(double.infinity, 260),
-              ),
-            ),
+            // const SizedBox(height: 20),
+            // const Text(
+            //   'Task 2: Heart from basic shapes',
+            //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            // ),
+            // const SizedBox(height: 10),
+            // SizedBox(
+            //   height: 260,
+            //   child: CustomPaint(
+            //     painter: (),
+            //     size: const Size(double.infinity, 260),
+            //   ),
+            // ),
 
             const SizedBox(height: 20),
             const Text(
@@ -71,9 +71,20 @@ class ShapesDemoScreen extends StatelessWidget {
             const SizedBox(height: 10),
             SizedBox(
               height: 260,
-              child: CustomPaint(
-                painter: PartyHatPainter(),
-                size: const Size(double.infinity, 260),
+              child: Stack(
+                children: [ 
+                  CustomPaint(
+                    painter: PartyHatPainter(),
+                    size: const Size(double.infinity, 260),
+                  ),
+
+                  Image.asset(
+                   "https://usagif.com/wp-content/uploads/gif/confetti-43.gif",
+                    height: 125.0,
+                    width: 125.0,
+
+                  ),
+                ],
               ),
             ),
           ],
