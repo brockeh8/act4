@@ -161,9 +161,9 @@ class HeartPainter extends CustomPainter {
 
     final ovalOffset1 = Offset(centerX - 20, centerY - 20);
     final ovalOffset2 = Offset(centerX + 20, centerY - 20);
-
     final triangleOffset = Offset(centerX, centerY + 60);
 
+    // Draws two ovals for the heart
     final paint = Paint()
       ..color = Colors.red
       ..style = PaintingStyle.fill;
@@ -178,6 +178,7 @@ class HeartPainter extends CustomPainter {
       paint,
     );
 
+    // Draws a flipped triangle for the bottom part of the heart
     final path = Path()
       ..moveTo(triangleOffset.dx, triangleOffset.dy)
       ..lineTo(triangleOffset.dx - 50, triangleOffset.dy - 60)
@@ -206,18 +207,21 @@ class BallPainter extends CustomPainter {
     final insideDot = Offset(centerX, centerY - 60);
     final insideDot1 = Offset(centerX, centerY - 40);
 
+    // Draws the outer black circle
     final circlePaint = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(circleOffset, 60, circlePaint);
 
+    // Draws the inner white circle
     final circlePaint1 = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(circleOffset1, 35, circlePaint1);
 
+    // Draws the two black dots
     final dotPaint = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.fill;
@@ -230,6 +234,7 @@ class BallPainter extends CustomPainter {
 
     canvas.drawCircle(bottomDot, 12, dotPaint);
 
+    // Draws the two white dots inside the black dots
     final insidePaint = Paint()
         ..color = Colors.white
         ..style = PaintingStyle.fill;
