@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+
 void main() {
   runApp(const ShapesDemoApp());
 }
@@ -48,21 +49,19 @@ class ShapesDemoScreen extends StatelessWidget {
                 size: const Size(double.infinity, 260),
               ),
             ),
-
-            // const SizedBox(height: 20),
-            // const Text(
-            //   'Task 2: Heart from basic shapes',
-            //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            // ),
-            // const SizedBox(height: 10),
-            // SizedBox(
-            //   height: 260,
-            //   child: CustomPaint(
-            //     painter: (),
-            //     size: const Size(double.infinity, 260),
-            //   ),
-            // ),
-
+            const SizedBox(height: 20),
+            const Text(
+              'Task 2: A Heart',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 300,
+              child: CustomPaint(
+                painter: HeartPainter(),
+                size: const Size(double.infinity, 300),
+              ),
+            ),
             const SizedBox(height: 20),
             const Text(
               'Task 3: Party Face from Basic Shapes',
@@ -86,6 +85,19 @@ class ShapesDemoScreen extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 20),
+            const Text(
+              'Task 4: A 8-ball',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 300,
+              child: CustomPaint(
+                painter: BallPainter(),
+                size: const Size(double.infinity, 300),
+              ),
+            ), 
           ],
         ),
       ),
@@ -135,6 +147,47 @@ class SmileyFacePainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
+
+class HeartPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final centerX = size.width / 2;
+    final centerY = size.height / 2;
+
+    final ovalOffset1 = Offset(centerX - 20, centerY - 20);
+    final ovalOffset2 = Offset(centerX + 20, centerY - 20);
+    final triangleOffset = Offset(centerX, centerY + 60);
+
+    // Draws two ovals for the heart
+    final paint = Paint()
+      ..color = Colors.red
+      ..style = PaintingStyle.fill;
+
+    canvas.drawOval(
+      Rect.fromCenter(center: ovalOffset1, width: 70, height: 70),
+      paint,
+    );
+
+    canvas.drawOval(
+      Rect.fromCenter(center: ovalOffset2, width: 70, height: 70),
+      paint,
+    );
+
+    // Draws a flipped triangle for the bottom part of the heart
+    final path = Path()
+      ..moveTo(triangleOffset.dx, triangleOffset.dy)
+      ..lineTo(triangleOffset.dx - 50, triangleOffset.dy - 60)
+      ..lineTo(triangleOffset.dx + 50, triangleOffset.dy - 60)
+      ..close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+
 
 class PartyHatPainter extends CustomPainter {
   @override
@@ -273,4 +326,61 @@ class PartyHatPainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
-  
+class BallPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final centerX = size.width / 2;
+    final centerY = size.height / 2;
+    final circleOffset1 = Offset(centerX, centerY - 50);
+    final circleOffset = Offset(centerX, centerY - 50);
+    final topDot = Offset(centerX, centerY - 60);
+    final bottomDot = Offset(centerX, centerY - 40);
+    final insideDot = Offset(centerX, centerY - 60);
+    final insideDot1 = Offset(centerX, centerY - 40);
+
+    // Draws the outer black circle
+    final circlePaint = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(circleOffset, 60, circlePaint);
+
+    // Draws the inner white circle
+    final circlePaint1 = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(circleOffset1, 35, circlePaint1);
+
+    // Draws the two black dots
+    final dotPaint = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(topDot, 12, dotPaint);
+
+    final dotPaint1 = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(bottomDot, 12, dotPaint);
+
+    // Draws the two white dots inside the black dots
+    final insidePaint = Paint()
+        ..color = Colors.white
+        ..style = PaintingStyle.fill;
+    
+    canvas.drawCircle(insideDot, 6, insidePaint);
+
+    final insidePaint1 = Paint()
+        ..color = Colors.white
+        ..style = PaintingStyle.fill;
+    
+    canvas.drawCircle(insideDot1, 6, insidePaint1);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
+}
